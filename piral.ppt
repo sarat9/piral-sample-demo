@@ -1,0 +1,68 @@
+# Piral
+
+
+Piral comes with the following features:
+
+- Highly modular
+- Multi-framework capable
+- Bundler independent (works with almost any bundler)
+- Central dependency sharing (i.e., from the app shell)
+- Distributed dependency sharing (between micro frontends)
+- Supports built-time integration, CSR, and SSR
+- Global state management
+- Independent development and deployment
+- CLI tool
+- Separate deployment and team owners
+
+
+# Application Shell (Piral Instance)
+Piral instance is usually just a very thin layer. This layer is what is primarily delivered to the end-user. The Piral instance is then responsible for gathering the (user-relevant) modules (called pilets) at runtime.
+- Piral instance builds the application shell and as such the foundation for executing pilets. All central and shared functions like layout, navigation menus, or notification handling will be configured in the Piral instance.
+- the app shell is the foundation for the whole frontend.
+- we see that the app shell is the top layer, which may (later on) hold other shared libraries or the shared UI components. The modules are then built later.
+
+
+
+# Pilets:
+brings the content for the application (e.g., functionality, queries, …)
+include their own assets and dedicated dependencies
+define where they want to integrate their components into (as given by the Piral instance)
+
+Note that while pilets can be loaded from cache as well, we usually require at least one communication with a server to ensure that the cached pilets are the ones that should be loaded for the user. Updates on the pilets, different feature flags, and other factors may influence this decision.
+
+
+
+
+
+- The idea goes something like this:
+
+split your frontend into self-contained sections (or components, or widgets),
+establish an input/output system for the sections to communicate with the backend and each other,
+build a composition layer that will put your bricks together and make them play together nicely.
+
+
+
+
+# Alternatives
+- https://bidishamondal.medium.com/the-what-why-and-how-of-microfrontends-78a39a4a7b81
+
+
+
+
+Links
+- https://github.com/smapiot/piral/blob/develop/docs/features.md
+- https://github.com/smapiot/piral/blob/develop/docs/concepts/I01-architecture.md
+- 
+
+- The Pilet:
+These are the individual feature modules, also known as microfrontends. They each include their own dependencies and assets, and are completely independent of each other.
+Pilets can define how the integration of their components will happen. 
+Maybe we need a dedicated page, and also register a button somewhere else - The feed service: 
+Pilets are usually published to a feed service (e.g. a REST API). Piral provides its own feed service over at piral.cloud.
+- The Piral Instance (app shell):
+This is the place where all feature modules will be integrated. The piral instance will pull all registered pilets from the feed service, and put them where they need to go as defined by the pilets themselves. The app shell also is the place to put your basic layout: navbars, headers, footers, and shared components.
+
+
+
+plugins:
+https://docs.piral.io/plugins/piral-menu
